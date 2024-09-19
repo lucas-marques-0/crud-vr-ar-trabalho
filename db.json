@@ -5,20 +5,20 @@
       "age": 22,
       "weight": 55,
       "height": 1.65,
-      "id": 2
-    },
-    {
-      "name": "Ana",
-      "age": 22,
-      "weight": 55,
-      "height": 1.65,
-      "id": 3
+      "id": 1
     },
     {
       "name": "Marina",
-      "age": 28,
-      "weight": 62,
-      "height": 1.7,
+      "age": "28",
+      "weight": "62",
+      "height": "1.7",
+      "id": 3
+    },
+    {
+      "name": "Ana",
+      "age": "22",
+      "weight": "62",
+      "height": "1.65",
       "id": 4
     },
     {
@@ -29,60 +29,11 @@
       "id": 5
     },
     {
-      "name": "Ana",
-      "age": 22,
-      "weight": 55,
-      "height": 1.65,
-      "id": 6
-    },
-    {
-      "name": "Ana",
-      "age": 22,
-      "weight": 55,
-      "height": 1.65,
-      "id": 7
-    },
-    {
       "name": "Carlos",
       "age": 30,
       "weight": 75,
       "height": 1.8,
-      "id": 8
-    },
-    {
-      "name": "Ana",
-      "age": 22,
-      "weight": 55,
-      "height": 1.65,
-      "id": 9
-    },
-    {
-      "name": "Marina",
-      "age": 28,
-      "weight": 62,
-      "height": 1.7,
-      "id": 10
-    },
-    {
-      "name": "Ana",
-      "age": 22,
-      "weight": 55,
-      "height": 1.65,
-      "id": 11
-    },
-    {
-      "name": "Marina",
-      "age": 28,
-      "weight": 62,
-      "height": 1.7,
-      "id": 12
-    },
-    {
-      "name": "Marina",
-      "age": 28,
-      "weight": 62,
-      "height": 1.7,
-      "id": 13
+      "id": 6
     }
   ]
 }
