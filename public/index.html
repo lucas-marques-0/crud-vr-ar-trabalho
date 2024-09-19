@@ -1,248 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.0/aframe/build/aframe-ar.js"></script>
     <title>CRUD em VR/AR</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Cena Aframe -->
-    <a-scene embedded arjs>
-      <!-- Circulo central de ação (para mirar nos elementos) -->
-      <a-entity camera look-controls>
-        <a-entity
-          cursor="fuse: true; fuseTimeout: 1000"
-          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-          material="color: yellow; shader: flat"
-          position="0 0 -1"
-          raycaster="objects: [crud-action]"
-        ></a-entity>
-      </a-entity>
+    <a-scene embedded="" arjs="" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="" device-orientation-permission-ui="">
+        <!-- Circulo central de ação (para mirar nos elementos) -->
+        <a-entity camera="" look-controls="" position="" rotation="">
+            <a-entity cursor="fuse: true; fuseTimeout: 1000" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: yellow; shader: flat" position="0 0 -1" raycaster="objects: [crud-action]"></a-entity>
+        </a-entity>
 
-      <!-- Cards CRUD espalhados no ambiente com rótulos -->
-      <a-box
-        id="post-card"
-        position="-2 1 -5"
-        color="#4CAF50"
-        crud-action="POST"
-        class="clickable"
-        depth="0.5"
-        height="0.5"
-        width="0.5"
-      ></a-box>
-      <a-text value="POST" position="-2 1.7 -5" color="#4CAF50"></a-text>
+        <!-- Mensagem de feedback -->
+        <a-text id="feedback" value="Usuário atualizado!" visible="false" position="0 2 -4" color="green" text=""></a-text>
 
-      <a-box
-        id="get-card"
-        position="2 1 -5"
-        color="#FFC107"
-        crud-action="GET"
-        class="clickable"
-        depth="0.5"
-        height="0.5"
-        width="0.5"
-      ></a-box>
-      <a-text value="GET" position="2 1.7 -5" color="#FFC107"></a-text>
+        <!-- Cards CRUD espalhados no ambiente com rótulos -->
+        <a-box id="post-card" position="-2 1 -5" color="#4CAF50" crud-action="POST" class="clickable" depth="0.5" height="0.5" width="0.5" material="" geometry=""></a-box>
+        <a-text value="POST" position="-2.3 1.7 -5" color="#4CAF50" text=""></a-text>
 
-      <a-box
-        id="put-card"
-        position="0 1 -6"
-        color="#03A9F4"
-        crud-action="PUT"
-        class="clickable"
-        depth="0.5"
-        height="0.5"
-        width="0.5"
-      ></a-box>
-      <a-text value="PUT" position="0 1.7 -6" color="#03A9F4"></a-text>
+        <a-box id="get-card" position="2.5 1 -5" color="#FFC107" crud-action="GET" class="clickable" depth="0.5" height="0.5" width="0.5" material="" geometry=""></a-box>
+        <a-text value="GET" position="2.5 1.7 -5" color="#FFC000" text=""></a-text>
 
-      <a-box
-        id="patch-card"
-        position="0 1 -8"
-        color="#673AB7"
-        crud-action="PATCH"
-        class="clickable"
-        depth="0.5"
-        height="0.5"
-        width="0.5"
-      ></a-box>
-      <a-text value="PATCH" position="0 1.7 -8" color="#673AB7"></a-text>
+        <a-box id="put-card" position="-0.7 1 -6" color="#fff000" crud-action="PUT" class="clickable" depth="0.5" height="0.5" width="0.5" material="" geometry=""></a-box>
+        <a-text value="PUT" position="-0.9 1.7 -6" color="#03A9F4" text=""></a-text>
 
-      <a-box
-        id="delete-card"
-        position="2 1 -7"
-        color="#F44336"
-        crud-action="DELETE"
-        class="clickable"
-        depth="0.5"
-        height="0.5"
-        width="0.5"
-      ></a-box>
-      <a-text value="DELETE" position="2 1.7 -7" color="#F44336"></a-text>
+        <a-box id="patch-card" position="1.0 1 -8" color="#673AB7" crud-action="PATCH" class="clickable" depth="0.5" height="0.5" width="0.5" material="" geometry=""></a-box>
+        <a-text value="PATCH" position="0.7 1.7 -8" color="#673AB7" text=""></a-text>
 
-      <!-- Formulário virtual para inserir dados -->
-      <a-plane
-        position="-1.5 2 -4"
-        width="3"
-        height="2"
-        color="#EEE"
-        id="formulario"
-      >
-        <a-text value="Formulário de Usuário" position="-1 0.7 0" color="#000"></a-text>
-        <a-text value="Nome:" position="-1 0.3 0" color="#000"></a-text>
-        <a-text id="nome" value="________" position="0 0.3 0" color="#000"></a-text>
-        <a-text value="Idade:" position="-1 0 0" color="#000"></a-text>
-        <a-text id="idade" value="__" position="0 0 0" color="#000"></a-text>
-        <a-text value="Peso:" position="-1 -0.3 0" color="#000"></a-text>
-        <a-text id="peso" value="__" position="0 -0.3 0" color="#000"></a-text>
-        <a-text value="Altura:" position="-1 -0.6 0" color="#000"></a-text>
-        <a-text id="altura" value="__" position="0 -0.6 0" color="#000"></a-text>
-      </a-plane>
+        <a-box id="delete-card" position="2 1 -7" color="#F44336" crud-action="DELETE" class="clickable" depth="0.5" height="0.5" width="0.5" material="" geometry=""></a-box>
+        <a-text value="DELETE" position="1.7 1.7 -7" color="#F44336" text=""></a-text>
 
-      <!-- Teclado virtual (simples para teste) -->
-      <a-entity id="virtual-keyboard" position="0 -0.5 -2">
-        <a-box id="key-1" position="-0.3 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="1"></a-box>
-        <a-box id="key-2" position="0 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="2"></a-box>
-        <a-box id="key-3" position="0.3 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="3"></a-box>
-      </a-entity>
+        <!-- Formulário virtual para inserir dados -->
+        <a-plane position="-1.2 4.5 -9" width="3" height="2" color="#EEE" id="formulario" material="" geometry="">
+            <a-text value="Formulário de Usuário" position="-1 0.7 0" color="#000" text=""></a-text>
+            <a-text value="Nome:" position="-1 0.3 0" color="#000" text=""></a-text>
+            <a-text id="nome" value="Marina" position="0 0.3 0" color="#000" text=""></a-text>
+            <a-text value="Idade:" position="-1 0 0" color="#000" text=""></a-text>
+            <a-text id="idade" value="28" position="0 0 0" color="#000" text=""></a-text>
+            <a-text value="Peso:" position="-1 -0.3 0" color="#000" text=""></a-text>
+            <a-text id="peso" value="62" position="0 -0.3 0" color="#000" text=""></a-text>
+            <a-text value="Altura:" position="-1 -0.6 0" color="#000" text=""></a-text>
+            <a-text id="altura" value="1.7" position="0 -0.6 0" color="#000" text=""></a-text>
+        </a-plane>
 
-    </a-scene>
+        <!-- Teclado virtual (simples para teste) -->
+        <a-entity id="virtual-keyboard" position="0 -0.5 -2">
+            <a-box id="key-1" position="-0.3 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="1" material="" geometry=""></a-box>
+            <a-box id="key-2" position="0 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="2" material="" geometry=""></a-box>
+            <a-box id="key-3" position="0.3 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="3" material="" geometry=""></a-box>
+        </a-entity>
+
+        <!-- Container para a lista de usuários -->
+        <a-entity id="user-list" position="1.5 3.5 -7"><a-text value="Ana" position="" color="blue" user-item="true" id="user-2" text=""></a-text><a-text value="Ana" position="" color="blue" user-item="true" id="user-3" text=""></a-text><a-text value="Marina" position="" color="blue" user-item="true" id="user-4" text=""></a-text><a-text value="Marina" position="" color="blue" user-item="true" id="user-5" text=""></a-text><a-text value="Ana" position="" color="blue" user-item="true" id="user-6" text=""></a-text><a-text value="Ana" position="" color="blue" user-item="true" id="user-7" text=""></a-text></a-entity>
+
+        <!-- Detalhes do usuário ao passar o cursor -->
+        <a-entity id="user-details" position="0 0.5 -5">
+            <a-text id="user-name" value="" visible="false" position="-1 0.5 0" color="blue" text=""></a-text>
+            <a-text id="user-age" value="" visible="false" position="-1 0 0" color="blue" text=""></a-text>
+            <a-text id="user-weight" value="" visible="false" position="-1 -0.5 0" color="blue" text=""></a-text>
+            <a-text id="user-height" value="" visible="false" position="-1 -1 0" color="blue" text=""></a-text>
+        </a-entity>
+
+
+    <canvas class="a-canvas a-grab-cursor" data-aframe-canvas="true" width="1227" height="920" style=""></canvas><div class="a-loader-title" style="display: none;">CRUD em VR/AR</div><div class="a-enter-vr" aframe-injected="" style="position: fixed;"><button class="a-enter-vr-button" title="Enter VR mode with a headset or fullscreen mode on a desktop. Visit https://webvr.rocks or https://webvr.info for more information." aframe-injected=""></button></div><div class="a-enter-ar a-hidden" aframe-injected=""><button class="a-enter-ar-button" title="Enter AR mode with a headset or handheld device. Visit https://webvr.rocks or https://webvr.info for more information." aframe-injected=""></button></div><div class="a-orientation-modal a-hidden" aframe-injected=""><button aframe-injected="">Exit VR</button></div><a-entity light="" data-aframe-default-light="" aframe-injected=""></a-entity><a-entity light="" position="" data-aframe-default-light="" aframe-injected=""></a-entity></a-scene>
 
     <script>
-      // URL do endpoint da API
-      const API_URL = 'https://improved-funicular-4rq7567pw93qpr7-3000.app.github.dev/users';
+        // URL do endpoint da API
+        const API_URL = 'https://improved-funicular-4rq7567pw93qpr7-4000.app.github.dev/users';
 
-      // Função de evento para CRUD ao detectar a mira
-      document.querySelectorAll('[crud-action]').forEach((el) => {
-        el.addEventListener('click', function () {
-          const action = this.getAttribute('crud-action');
-          handleCrudAction(action);
+        // Função de evento para CRUD ao detectar a mira
+        document.querySelectorAll('[crud-action]').forEach((el) => {
+            el.addEventListener('mouseenter', function () {
+                const action = this.getAttribute('crud-action');
+                handleCrudAction(action);
+            });
         });
-      });
 
-      // Funções CRUD
-      function handleCrudAction(action) {
-        switch (action) {
-          case 'POST':
-            createUser();
-            break;
-          case 'GET':
-            getUser();
-            break;
-          case 'PUT':
-            updateUser();
-            break;
-          case 'PATCH':
-            patchUser();
-            break;
-          case 'DELETE':
-            deleteUser();
-            break;
-          default:
-            console.log('Ação desconhecida');
+        // Funções CRUD
+        function handleCrudAction(action) {
+            switch (action) {
+                case 'POST':
+                    createUser();
+                    break;
+                case 'GET':
+                    getUser();
+                    break;
+                case 'PUT':
+                    updateUser();
+                    break;
+                case 'PATCH':
+                    patchUser();
+                    break;
+                case 'DELETE':
+                    deleteUser();
+                    break;
+                default:
+                    console.log('Ação desconhecida');
+            }
         }
-      }
 
-      // Função POST (criar novo usuário)
-      function createUser() {
-        const userData = {
-          name: document.querySelector('#nome').getAttribute('value'),
-          age: parseInt(document.querySelector('#idade').getAttribute('value')),
-          weight: parseFloat(document.querySelector('#peso').getAttribute('value')),
-          height: parseFloat(document.querySelector('#altura').getAttribute('value')),
-        };
+        // Função para mostrar mensagem 3D e ocultar depois de um tempo
+        function showMessage(message, color = 'green') {
+            const feedback = document.querySelector('#feedback');
+            feedback.setAttribute('value', message);
+            feedback.setAttribute('color', color);
+            feedback.setAttribute('visible', 'true');
+            setTimeout(() => {
+                feedback.setAttribute('visible', 'false');
+            }, 3000); // Oculta a mensagem depois de 3 segundos
+        }
 
-        fetch(`${API_URL}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Usuário criado:', data);
-            alert('Usuário criado!');
-          })
-          .catch((error) => console.error('Erro ao criar usuário:', error));
-      }
+        // Função para gerar usuários aleatórios
+        function getRandomUser() {
+            const users = [
+                { name: 'Ana', age: 22, weight: 55, height: 1.65 },
+                { name: 'Carlos', age: 30, weight: 75, height: 1.8 },
+                { name: 'Marina', age: 28, weight: 62, height: 1.7 }
+            ];
+            return users[Math.floor(Math.random() * users.length)];
+        }
 
-      // Função GET (obter usuário)
-      function getUser() {
-        fetch(`${API_URL}/1`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Usuário obtido:', data);
-            alert(`Usuário: ${data.name}, Idade: ${data.age}`);
-          })
-          .catch((error) => console.error('Erro ao obter usuário:', error));
-      }
+        // Função POST (criar novo usuário)
+        function createUser() {
+            const nome = document.querySelector('#nome').getAttribute('value');
+            const idade = document.querySelector('#idade').getAttribute('value');
+            const peso = document.querySelector('#peso').getAttribute('value');
+            const altura = document.querySelector('#altura').getAttribute('value');
 
-      // Função PUT (atualizar usuário)
-      function updateUser() {
-        const userData = {
-          name: 'Nome Atualizado',
-          age: 30,
-        };
+            // Validação: verifica se os campos estão preenchidos
+            if (nome === '________' || idade === '__' || peso === '__' || altura === '__') {
+                showMessage('Preencha todos os campos!', 'red');
+                return;
+            }
 
-        fetch(`${API_URL}/1`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Usuário atualizado:', data);
-            alert('Usuário atualizado!');
-          })
-          .catch((error) => console.error('Erro ao atualizar usuário:', error));
-      }
+            const userData = { name: nome, age: parseInt(idade), weight: parseFloat(peso), height: parseFloat(altura) };
 
-      // Função PATCH (atualizar parcialmente usuário)
-      function patchUser() {
-        const userData = {
-          weight: 75,
-        };
+            fetch(`${API_URL}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Usuário criado:', data);
+                    showMessage('Usuário criado!');
+                })
+                .catch((error) => {
+                    console.error('Erro ao criar usuário:', error);
+                    showMessage('Erro ao criar usuário!', 'red');
+                });
+        }
 
-        fetch(`${API_URL}/1`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Usuário atualizado (PATCH):', data);
-            alert('Usuário atualizado parcialmente!');
-          })
-          .catch((error) => console.error('Erro ao atualizar usuário parcialmente:', error));
-      }
+        // Função GET (obter usuário)
+        function getUser() {
+            fetch(`${API_URL}/1`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Usuário obtido:', data);
+                    showMessage(`Usuário: ${data.name}, Idade: ${data.age}`);
+                })
+                .catch((error) => {
+                    console.error('Erro ao obter usuário:', error);
+                    showMessage('Erro ao obter usuário!', 'red');
+                });
+        }
 
-      // Função DELETE (excluir usuário)
-      function deleteUser() {
-        fetch(`${API_URL}/1`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Usuário deletado:', data);
-            alert('Usuário deletado!');
-          })
-          .catch((error) => console.error('Erro ao deletar usuário:', error));
-      }
+        // Função PUT (atualizar usuário)
+        function updateUser() {
+            const userData = {
+                name: 'Nome Atualizado',
+                age: 30,
+            };
+
+            fetch(`${API_URL}/1`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Usuário atualizado:', data);
+                    showMessage('Usuário atualizado!');
+                })
+                .catch((error) => {
+                    console.error('Erro ao atualizar usuário:', error);
+                    showMessage('Erro ao atualizar usuário!', 'red');
+                });
+        }
+
+        // Função PATCH (atualizar parcialmente usuário)
+        function patchUser() {
+            const userData = {
+                weight: 75,
+            };
+
+            fetch(`${API_URL}/1`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Usuário atualizado (PATCH):', data);
+                    showMessage('Usuário atualizado parcialmente!');
+                })
+                .catch((error) => {
+                    console.error('Erro ao atualizar usuário parcialmente:', error);
+                    showMessage('Erro ao atualizar parcialmente!', 'red');
+                });
+        }
+
+        // Função DELETE (excluir usuário)
+        function deleteUser() {
+            fetch(`${API_URL}/1`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Usuário deletado:', data);
+                    showMessage('Usuário deletado!');
+                })
+                .catch((error) => {
+                    console.error('Erro ao deletar usuário:', error);
+                    showMessage('Erro ao deletar usuário!', 'red');
+                });
+        }
+
+
+        // Função para carregar a lista de usuários e exibi-la no cenário
+        function loadUserList() {
+            fetch(API_URL)
+                .then(response => response.json())
+                .then(users => {
+                    const userListEntity = document.querySelector('#user-list');
+                    userListEntity.innerHTML = ''; // Limpa a lista anterior
+
+                    users.forEach((user, index) => {
+                        // Cria um texto 3D para o nome de cada usuário
+                        const userText = document.createElement('a-text');
+                        userText.setAttribute('value', user.name);
+                        userText.setAttribute('position', `0 ${1 - index * 0.3} 0`);
+                        userText.setAttribute('color', 'blue');
+                        userText.setAttribute('user-item', 'true');
+                        userText.setAttribute('id', `user-${user.id}`);
+
+                        // Adiciona o evento para mostrar os detalhes ao passar o cursor
+                        userText.addEventListener('mouseenter', () => showUserDetails(user));
+
+                        // Adiciona o elemento à cena
+                        userListEntity.appendChild(userText);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar a lista de usuários:', error));
+        }
+
+        // Função para mostrar detalhes do usuário
+        function showUserDetails(user) {
+            const name = document.querySelector('#user-name');
+            const age = document.querySelector('#user-age');
+            const weight = document.querySelector('#user-weight');
+            const height = document.querySelector('#user-height');
+
+            // Define os valores dos textos 3D
+            name.setAttribute('value', `Nome: ${user.name}`);
+            age.setAttribute('value', `Idade: ${user.age}`);
+            weight.setAttribute('value', `Peso: ${user.weight}`);
+            height.setAttribute('value', `Altura: ${user.height}`);
+
+            // Torna os detalhes visíveis
+            name.setAttribute('visible', 'true');
+            age.setAttribute('visible', 'true');
+            weight.setAttribute('visible', 'true');
+            height.setAttribute('visible', 'true');
+
+            // Oculta os detalhes após 5 segundos
+            setTimeout(() => {
+                name.setAttribute('visible', 'false');
+                age.setAttribute('visible', 'false');
+                weight.setAttribute('visible', 'false');
+                height.setAttribute('visible', 'false');
+            }, 5000);
+        }
+
+        // Carregar a lista de usuários ao iniciar
+        window.addEventListener('load', loadUserList);
+
+
+        // Preenche o formulário com dados de um usuário aleatório ao passar sobre o elemento POST
+        document.querySelector('#post-card').addEventListener('mouseenter', function () {
+            const randomUser = getRandomUser();
+            document.querySelector('#nome').setAttribute('value', randomUser.name);
+            document.querySelector('#idade').setAttribute('value', randomUser.age);
+            document.querySelector('#peso').setAttribute('value', randomUser.weight);
+            document.querySelector('#altura').setAttribute('value', randomUser.height);
+            showMessage('Dados gerados automaticamente!');
+        });
     </script>
-  </body>
+</body>
+
 </html>
