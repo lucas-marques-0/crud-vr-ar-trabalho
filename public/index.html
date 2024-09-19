@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.0/aframe/build/aframe-ar.js"></script>
+    <title>CRUD em VR/AR</title>
+  </head>
+  <body>
+    <!-- Cena Aframe -->
+    <a-scene embedded arjs>
+      <!-- Circulo central de ação (para mirar nos elementos) -->
+      <a-entity camera look-controls>
+        <a-entity
+          cursor="fuse: true; fuseTimeout: 1000"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+          material="color: yellow; shader: flat"
+          position="0 0 -1"
+          raycaster="objects: [crud-action]"
+        ></a-entity>
+      </a-entity>
+
+      <!-- Cards CRUD espalhados no ambiente com rótulos -->
+      <a-box
+        id="post-card"
+        position="-2 1 -5"
+        color="#4CAF50"
+        crud-action="POST"
+        class="clickable"
+        depth="0.5"
+        height="0.5"
+        width="0.5"
+      ></a-box>
+      <a-text value="POST" position="-2 1.7 -5" color="#4CAF50"></a-text>
+
+      <a-box
+        id="get-card"
+        position="2 1 -5"
+        color="#FFC107"
+        crud-action="GET"
+        class="clickable"
+        depth="0.5"
+        height="0.5"
+        width="0.5"
+      ></a-box>
+      <a-text value="GET" position="2 1.7 -5" color="#FFC107"></a-text>
+
+      <a-box
+        id="put-card"
+        position="0 1 -6"
+        color="#03A9F4"
+        crud-action="PUT"
+        class="clickable"
+        depth="0.5"
+        height="0.5"
+        width="0.5"
+      ></a-box>
+      <a-text value="PUT" position="0 1.7 -6" color="#03A9F4"></a-text>
+
+      <a-box
+        id="patch-card"
+        position="0 1 -8"
+        color="#673AB7"
+        crud-action="PATCH"
+        class="clickable"
+        depth="0.5"
+        height="0.5"
+        width="0.5"
+      ></a-box>
+      <a-text value="PATCH" position="0 1.7 -8" color="#673AB7"></a-text>
+
+      <a-box
+        id="delete-card"
+        position="2 1 -7"
+        color="#F44336"
+        crud-action="DELETE"
+        class="clickable"
+        depth="0.5"
+        height="0.5"
+        width="0.5"
+      ></a-box>
+      <a-text value="DELETE" position="2 1.7 -7" color="#F44336"></a-text>
+
+      <!-- Formulário virtual para inserir dados -->
+      <a-plane
+        position="-1.5 2 -4"
+        width="3"
+        height="2"
+        color="#EEE"
+        id="formulario"
+      >
+        <a-text value="Formulário de Usuário" position="-1 0.7 0" color="#000"></a-text>
+        <a-text value="Nome:" position="-1 0.3 0" color="#000"></a-text>
+        <a-text id="nome" value="________" position="0 0.3 0" color="#000"></a-text>
+        <a-text value="Idade:" position="-1 0 0" color="#000"></a-text>
+        <a-text id="idade" value="__" position="0 0 0" color="#000"></a-text>
+        <a-text value="Peso:" position="-1 -0.3 0" color="#000"></a-text>
+        <a-text id="peso" value="__" position="0 -0.3 0" color="#000"></a-text>
+        <a-text value="Altura:" position="-1 -0.6 0" color="#000"></a-text>
+        <a-text id="altura" value="__" position="0 -0.6 0" color="#000"></a-text>
+      </a-plane>
+
+      <!-- Teclado virtual (simples para teste) -->
+      <a-entity id="virtual-keyboard" position="0 -0.5 -2">
+        <a-box id="key-1" position="-0.3 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="1"></a-box>
+        <a-box id="key-2" position="0 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="2"></a-box>
+        <a-box id="key-3" position="0.3 0.2 0" depth="0.1" height="0.1" width="0.1" color="#AAA" value="3"></a-box>
+      </a-entity>
+
+    </a-scene>
+
+    <script>
+      // URL do endpoint da API
+      const API_URL = 'https://improved-funicular-4rq7567pw93qpr7-3000.app.github.dev/users';
+
+      // Função de evento para CRUD ao detectar a mira
+      document.querySelectorAll('[crud-action]').forEach((el) => {
+        el.addEventListener('click', function () {
+          const action = this.getAttribute('crud-action');
+          handleCrudAction(action);
+        });
+      });
+
+      // Funções CRUD
+      function handleCrudAction(action) {
+        switch (action) {
+          case 'POST':
+            createUser();
+            break;
+          case 'GET':
+            getUser();
+            break;
+          case 'PUT':
+            updateUser();
+            break;
+          case 'PATCH':
+            patchUser();
+            break;
+          case 'DELETE':
+            deleteUser();
+            break;
+          default:
+            console.log('Ação desconhecida');
+        }
+      }
+
+      // Função POST (criar novo usuário)
+      function createUser() {
+        const userData = {
+          name: document.querySelector('#nome').getAttribute('value'),
+          age: parseInt(document.querySelector('#idade').getAttribute('value')),
+          weight: parseFloat(document.querySelector('#peso').getAttribute('value')),
+          height: parseFloat(document.querySelector('#altura').getAttribute('value')),
+        };
+
+        fetch(`${API_URL}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Usuário criado:', data);
+            alert('Usuário criado!');
+          })
+          .catch((error) => console.error('Erro ao criar usuário:', error));
+      }
+
+      // Função GET (obter usuário)
+      function getUser() {
+        fetch(`${API_URL}/1`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Usuário obtido:', data);
+            alert(`Usuário: ${data.name}, Idade: ${data.age}`);
+          })
+          .catch((error) => console.error('Erro ao obter usuário:', error));
+      }
+
+      // Função PUT (atualizar usuário)
+      function updateUser() {
+        const userData = {
+          name: 'Nome Atualizado',
+          age: 30,
+        };
+
+        fetch(`${API_URL}/1`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Usuário atualizado:', data);
+            alert('Usuário atualizado!');
+          })
+          .catch((error) => console.error('Erro ao atualizar usuário:', error));
+      }
+
+      // Função PATCH (atualizar parcialmente usuário)
+      function patchUser() {
+        const userData = {
+          weight: 75,
+        };
+
+        fetch(`${API_URL}/1`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Usuário atualizado (PATCH):', data);
+            alert('Usuário atualizado parcialmente!');
+          })
+          .catch((error) => console.error('Erro ao atualizar usuário parcialmente:', error));
+      }
+
+      // Função DELETE (excluir usuário)
+      function deleteUser() {
+        fetch(`${API_URL}/1`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Usuário deletado:', data);
+            alert('Usuário deletado!');
+          })
+          .catch((error) => console.error('Erro ao deletar usuário:', error));
+      }
+    </script>
+  </body>
+</html>

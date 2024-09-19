@@ -1,16 +1,18 @@
 {
-  "posts":[
+  "users": [
     {
-      "id" : 0,
-      "title": "First post!",
-      "content" : "My first content!"
-    }
-  ],
-  "comments" : [
+      "id": "1",
+      "name": "MARIO",
+      "age": 30,
+      "weight": 80,
+      "height": 60
+    },
     {
-      "id": 0,
-      "content": "Wow such content!",
-      "username": "zero_cool"
+      "id": "9434",
+      "name": "________",
+      "age": null,
+      "weight": null,
+      "height": null
     }
   ]
 }
