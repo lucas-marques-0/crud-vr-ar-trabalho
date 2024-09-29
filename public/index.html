@@ -20,22 +20,20 @@
         <!-- Mensagem de feedback -->
         <a-text id="feedback" value="Usuário atualizado!" visible="false" position="0 2 -4" color="green"></a-text>
 
-        <!-- Cards CRUD -->
-        <a-box id="post-card" position="-2 -1 -5" color="#4CAF50" crud-action="POST" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
-        <a-text value="POST" position="-2.3 -0.3 -5" color="#4CAF50"></a-text>
+<a-box id="post-card" position="-3 -1 -5" color="#4CAF50" crud-action="POST" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
+<a-text value="POST" position="-3.3 -0.3 -5" color="#4CAF50"></a-text>
 
-        <a-box id="get-card" position="2.5 -1 -5" color="#FFC107" crud-action="GET" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
-        <a-text value="GET" position="2.5 -0.3 -5" color="#FFC107"></a-text>
+<a-box id="get-card" position="-1.5 -1 -5" color="#FFC107" crud-action="GET" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
+<a-text value="GET" position="-1.8 -0.3 -5" color="#FFC107"></a-text>
 
-        <a-box id="put-card" position="0.7 -1 -6" color="#03A9F4" crud-action="PUT" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
-        <a-text value="PUT" position="0.5 -0.3 -6" color="#03A9F4"></a-text>
+<a-box id="put-card" position="0 -1 -5" color="#03A9F4" crud-action="PUT" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
+<a-text value="PUT" position="-0.3 -0.3 -5" color="#03A9F4"></a-text>
 
-        <a-box id="patch-card" position="1.0 -1 -8" color="#673AB7" crud-action="PATCH" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
-        <a-text value="PATCH" position="0.7 -0.3 -8" color="#673AB7"></a-text>
+<a-box id="patch-card" position="1.5 -1 -5" color="#673AB7" crud-action="PATCH" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
+<a-text value="PATCH" position="1.2 -0.3 -5" color="#673AB7"></a-text>
 
-        <a-box id="delete-card" position="2 -1 -7" color="#F44336" crud-action="DELETE" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
-        <a-text value="DELETE" position="1.7 -0.3 -7" color="#F44336"></a-text>
-
+<a-box id="delete-card" position="3 -1 -5" color="#F44336" crud-action="DELETE" class="clickable" depth="0.5" height="0.5" width="0.5"></a-box>
+<a-text value="DELETE" position="2.7 -0.3 -5" color="#F44336"></a-text>
 
         <a-entity camera look-controls position="0 1.6 0">
             <!-- Adicionar cursor para interação -->
@@ -44,17 +42,17 @@
         </a-entity>
 
         <!-- Formulário virtual para inserir dados -->
-        <a-plane position="-1.5 2 -6" width="3" height="2" color="#EEE" id="formulario">
-            <a-text value="Formulário de Usuário" position="-1 0.7 0" color="#000"></a-text>
-            <a-text value="Nome:" position="-1 0.3 0" color="#000"></a-text>
-            <a-text id="nome" value="________" position="0 0.3 0" color="#000"></a-text>
-            <a-text value="Idade:" position="-1 0 0" color="#000"></a-text>
-            <a-text id="idade" value="__" position="0 0 0" color="#000"></a-text>
-            <a-text value="Peso:" position="-1 -0.3 0" color="#000"></a-text>
-            <a-text id="peso" value="__" position="0 -0.3 0" color="#000"></a-text>
-            <a-text value="Altura:" position="-1 -0.6 0" color="#000"></a-text>
-            <a-text id="altura" value="__" position="0 -0.6 0" color="#000"></a-text>
-        </a-plane>
+        <a-plane position="0 1 -3" width="2" height="1" color="#FFFFFF">
+            <a-text value="Formulário de Usuário" position="0 0.35 0.01" color="#000000" align="center" width="2"></a-text>
+            <a-text value="Nome:" position="-0.7 0.15 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="________" position="0 0.15 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="Idade:" position="-0.7 0 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="__" position="0 0 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="Peso:" position="-0.7 -0.15 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="__" position="0 -0.15 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="Altura:" position="-0.7 -0.3 0.01" color="#000000" align="left" width="1.5"></a-text>
+            <a-text value="__" position="0 -0.3 0.01" color="#000000" align="left" width="1.5"></a-text>
+          </a-plane>
 
         <!-- Lista de usuários compactada com fundo branco e border-radius -->
         <a-entity id="user-list" position="0 1.5 -5"></a-entity>
